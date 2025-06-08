@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 300;
+    }
+    .tab {
+      display: none;
+    }
+    .tab.active {
+      display: block;
+    }
+    .nav-item.active i,
+    .nav-item.active span {
+      color: #06b6d4;
+    }
+    .nav-item.active {
+      transform: scale(1.1);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Seção INÍCIO -->
+  <section id="inicio" class="tab active">
+    <section class="px-4 py-3 border-b border-gray-200 flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-full border border-gray-400 flex items-center justify-center text-gray-400">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="text-sm font-light">
+        <div id="dataAtual" class="text-xs text-gray-500">25 de agosto de 2021</div>
+        <div id="olaUsuario">Olá, Usuário</div>
+      </div>
+    </section>
+
+    <section class="flex justify-between items-center px-4 py-2 text-xs text-cyan-600 font-light">
+      <div id="anoAtual">2021</div>
+      <div id="mesAnoAtual">AGO. 2021</div>
+    </section>
+
+    <main class="px-4 space-y-3 pb-20">
+      <!-- Pagamentos -->
+      <div class="bg-white rounded-md shadow-sm p-4 flex justify-between items-center">
+        <div>
+          <div class="flex items-center space-x-2 mb-2 text-gray-700 font-semibold text-sm font-light">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Pagamentos</span>
+          </div>
+          <ul class="text-sm text-gray-700 space-y-1 font-light">
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-green-600 inline-block"></span>
+              <span>Finalizados</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+              <span>Pendente</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-red-700 inline-block"></span>
+              <span>Cancelado</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col items-center justify-center border-4 border-green-600 rounded-full w-16 h-16 text-green-600 font-semibold text-xl leading-none font-light">
+          0
+        </div>
+      </div>
+
+      <!-- Chamados -->
+      <div class="bg-white rounded-md shadow-sm p-4 flex justify-between items-center">
+        <div>
+          <div class="flex items-center space-x-2 mb-2 text-gray-700 font-semibold text-sm font-light">
+            <i class="fas fa-folder-open"></i>
+            <span>Chamados</span>
+          </div>
+          <ul class="text-sm text-gray-700 space-y-1 font-light">
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-green-600 inline-block"></span>
+              <span>Em processo</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+              <span>Pendente</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-red-700 inline-block"></span>
+              <span>Cancelado</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+          </ul>
+        </div>
+        <div class="flex items-center justify-center border-4 border-green-600 rounded-full w-16 h-16 text-green-600 font-semibold text-xl leading-none font-light">
+          0
+        </div>
+      </div>
+
+      <!-- Documentos -->
+      <div class="bg-white rounded-md shadow-sm p-4 flex justify-between items-center">
+        <div>
+          <div class="flex items-center space-x-2 mb-2 text-gray-700 font-semibold text-sm font-light">
+            <i class="fas fa-paper-plane"></i>
+            <span>Documentos a enviar</span>
+          </div>
+          <ul class="text-sm text-gray-700 space-y-1 font-light">
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-green-600 inline-block"></span>
+              <span>Pendente</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+              <span>Pendente</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-red-700 inline-block"></span>
+              <span>Pendente</span>
+              <span class="ml-auto font-normal">0</span>
+            </li>
+          </ul>
+        </div>
+        <div class="flex items-center justify-center border-4 border-green-600 rounded-full w-16 h-16 text-green-600 font-semibold text-xl leading-none font-light">
+          0
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- Seções extras -->
+  <section id="pagamentos" class="tab">
+    <div class="p-4">Conteúdo de Pagamentos</div>
+  </section>
+
+  <section id="recebidos" class="tab">
+    <div class="p-4">Conteúdo de Recebidos</div>
+  </section>
+
+  <section id="aenviar" class="tab">
+    <div class="p-4">Conteúdo de A Enviar</div>
+  </section>
+
+  <section id="clientes" class="tab">
+   <html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Cadastro de Clientes
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-white text-gray-900 min-h-screen flex flex-col">
+  <!-- Main content -->
+  <main class="flex-grow px-4 pt-6 pb-20 flex flex-col">
+   <div class="flex items-center justify-between mb-2">
+    <h2 class="text-lg font-semibold">
+     Número de Clientes
+    </h2>
+    <button class="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-medium px-4 py-1 rounded" id="openModalBtn" type="button">
+     Cadastrar
+    </button>
+   </div>
+   <div class="mb-2 text-gray-700 font-medium">
+    Total:
+    <span id="totalClients">
+     1
+    </span>
+   </div>
+   <hr class="border-t border-gray-300 mb-4"/>
+   <!-- Clientes list -->
+   <ul class="space-y-3 overflow-y-auto max-h-[60vh]" id="clientsList">
+    <!-- Template client item -->
+    <li class="border border-gray-300 rounded p-3 flex flex-col sm:flex-row sm:justify-between sm:items-center space-x-0 sm:space-x-4">
+     <div class="flex items-center space-x-4 mb-3 sm:mb-0">
+      <img alt="Ícone cinza de usuário vazio quadrado 64x64 pixels" class="w-16 h-16 rounded-md object-cover flex-shrink-0" height="64" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBkA9WO3FnL4fddebhCcTztCr6vr2METdo9w&s" width="64"/>
+      <div>
+       <p class="font-medium text-gray-900">
+        João Silva
+       </p>
+       <p class="text-gray-600 text-sm">
+        (11) 91234-5678
+       </p>
+       <p class="text-gray-600 text-sm truncate max-w-xs">
+        Rua Exemplo, 123, Bairro, Cidade
+       </p>
+      </div>
+     </div>
+     <div class="flex items-center space-x-4">
+      <button aria-label="Detalhes do cliente" class="px-3 py-1 text-cyan-600 border border-cyan-600 rounded hover:bg-cyan-50 focus:outline-none">
+       Detalhes
+      </button>
+     </div>
+    </li>
+   </ul>
+  </main>
+  <!-- Modal -->
+  <div aria-hidden="true" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" id="modal">
+   <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6">
+    <h3 class="text-lg font-semibold mb-4">
+     Cadastrar Cliente
+    </h3>
+    <form class="space-y-4" id="clientForm">
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="name">
+       Nome
+      </label>
+      <input class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" id="name" name="name" required="" type="text"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="phone">
+       Número
+      </label>
+      <input class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" id="phone" name="phone" pattern="[\d\s()+-]+" placeholder="(11) 91234-5678" type="tel"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="address">
+       Endereço
+      </label>
+      <input class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" id="address" name="address" placeholder="Rua, número, bairro, cidade" type="text"/>
+     </div>
+     <div class="flex justify-end space-x-3 pt-2">
+      <button class="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100" id="cancelBtn" type="button">
+       Cancelar
+      </button>
+      <button class="px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600" type="submit">
+       Salvar
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <script>
+   const openModalBtn = document.getElementById('openModalBtn');
+    const modal = document.getElementById('modal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const clientForm = document.getElementById('clientForm');
+    const clientsList = document.getElementById('clientsList');
+    const totalClients = document.getElementById('totalClients');
+
+    function updateTotal() {
+      totalClients.textContent = clientsList.children.length;
+    }
+
+    openModalBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      document.getElementById('name').focus();
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.setAttribute('aria-hidden', 'true');
+      clientForm.reset();
+    });
+
+    clientForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = clientForm.name.value.trim();
+      const phone = clientForm.phone.value.trim();
+      const address = clientForm.address.value.trim();
+
+      if (name) {
+        // Create client list item
+        const li = document.createElement('li');
+        li.className = 'border border-gray-300 rounded p-3 flex flex-col sm:flex-row sm:justify-between sm:items-center space-x-0 sm:space-x-4';
+        li.innerHTML = `
+          <div class="flex items-center space-x-4 mb-3 sm:mb-0">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBkA9WO3FnL4fddebhCcTztCr6vr2METdo9w&s"
+              alt="Ícone cinza de usuário vazio quadrado 64x64 pixels"
+              class="w-16 h-16 rounded-md object-cover flex-shrink-0"
+            />
+            <div>
+              <p class="font-medium text-gray-900">${name}</p>
+              <p class="text-gray-600 text-sm">${phone || '-'}</p>
+              <p class="text-gray-600 text-sm truncate max-w-xs">${address || '-'}</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <button aria-label="Detalhes do cliente" class="px-3 py-1 text-cyan-600 border border-cyan-600 rounded hover:bg-cyan-50 focus:outline-none">
+              Detalhes
+            </button>
+          </div>
+        `;
+
+        clientsList.appendChild(li);
+        updateTotal();
+
+        clientForm.reset();
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // Close modal on outside click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        clientForm.reset();
+      }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        clientForm.reset();
+      }
+    });
+  </script>
+ </body>
+</html>
+  </section>
+
+  <!-- Menu de navegação -->
+  <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50">
+    <ul class="flex justify-between text-xs text-gray-600 font-light px-4 py-2">
+      <li class="flex flex-col items-center nav-item active" onclick="mostrarAba('inicio', this)">
+        <i class="fas fa-th-large text-lg"></i>
+        <span>Início</span>
+      </li>
+      <li class="flex flex-col items-center nav-item" onclick="mostrarAba('pagamentos', this)">
+        <i class="fas fa-file-invoice-dollar text-lg"></i>
+        <span>Pagamentos</span>
+      </li>
+      <li class="flex flex-col items-center nav-item" onclick="mostrarAba('recebidos', this)">
+        <i class="fas fa-folder-open text-lg"></i>
+        <span>Recebidos</span>
+      </li>
+      <li class="flex flex-col items-center nav-item" onclick="mostrarAba('aenviar', this)">
+        <i class="fas fa-paper-plane text-lg"></i>
+        <span>A enviar</span>
+      </li>
+      <li class="flex flex-col items-center nav-item" onclick="mostrarAba('clientes', this)">
+        <i class="fas fa-user text-lg"></i>
+        <span>Clientes</span>
+      </li>
+    </ul>
+  </nav>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTXa4IJCWpiUZaCakBbrAKmga9QG7yCao",
+      authDomain: "rstark-assistencia-tecnica.firebaseapp.com",
+      projectId: "rstark-assistencia-tecnica",
+      storageBucket: "rstark-assistencia-tecnica.firebasestorage.app",
+      messagingSenderId: "40160638683",
+      appId: "1:40160638683:web:07bc119e6dc8953ca97efe",
+      measurementId: "G-EY2CRF0838"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Mostrar aba selecionada
+    function mostrarAba(id, el) {
+      document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    // Atualizar datas
+    function atualizarDatas() {
+      const hoje = new Date();
+
+      const optionsDataCompleta = { day: 'numeric', month: 'long', year: 'numeric' };
+      const dataCompleta = hoje.toLocaleDateString('pt-BR', optionsDataCompleta);
+      document.getElementById('dataAtual').textContent = dataCompleta;
+
+      const ano = hoje.getFullYear();
+      document.getElementById('anoAtual').textContent = ano;
+
+      const mesesAbreviados = ['JAN.', 'FEV.', 'MAR.', 'ABR.', 'MAI.', 'JUN.', 'JUL.', 'AGO.', 'SET.', 'OUT.', 'NOV.', 'DEZ.'];
+      const mesAbrev = mesesAbreviados[hoje.getMonth()];
+      document.getElementById('mesAnoAtual').textContent = `${mesAbrev} ${ano}`;
+    }
+
+    // Atualizar saudação com e-mail do usuário logado
+    function atualizarOlaUsuario(user) {
+      const olaUsuario = document.getElementById('olaUsuario');
+      if (user && user.email) {
+        olaUsuario.textContent = `Olá, ${user.email}`;
+      } else {
+        olaUsuario.textContent = 'Olá, Usuário';
+      }
+    }
+
+    // Observador de autenticação
+    auth.onAuthStateChanged(user => {
+      atualizarOlaUsuario(user);
+    });
+
+    atualizarDatas();
+  </script>
+
+</body>
+</html>
