@@ -156,185 +156,212 @@
   </section>
 
   <section id="clientes" class="tab">
-   <html class="scroll-smooth" lang="pt-BR">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   Cadastro de Clientes
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet"/>
+   <!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Clientes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
-   body {
-      font-family: 'Roboto', sans-serif;
-    }
+    body { font-family: 'Roboto', sans-serif; }
   </style>
- </head>
- <body class="bg-white text-gray-900 min-h-screen flex flex-col">
-  <!-- Main content -->
-  <main class="flex-grow px-4 pt-6 pb-20 flex flex-col">
-   <div class="flex items-center justify-between mb-2">
-    <h2 class="text-lg font-semibold">
-     Número de Clientes
-    </h2>
-    <button class="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-medium px-4 py-1 rounded" id="openModalBtn" type="button">
-     Cadastrar
-    </button>
-   </div>
-   <div class="mb-2 text-gray-700 font-medium">
-    Total:
-    <span id="totalClients">
-     1
-    </span>
-   </div>
-   <hr class="border-t border-gray-300 mb-4"/>
-   <!-- Clientes list -->
-   <ul class="space-y-3 overflow-y-auto max-h-[60vh]" id="clientsList">
-    <!-- Template client item -->
-    <li class="border border-gray-300 rounded p-3 flex flex-col sm:flex-row sm:justify-between sm:items-center space-x-0 sm:space-x-4">
-     <div class="flex items-center space-x-4 mb-3 sm:mb-0">
-      <img alt="Ícone cinza de usuário vazio quadrado 64x64 pixels" class="w-16 h-16 rounded-md object-cover flex-shrink-0" height="64" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBkA9WO3FnL4fddebhCcTztCr6vr2METdo9w&s" width="64"/>
-      <div>
-       <p class="font-medium text-gray-900">
-        João Silva
-       </p>
-       <p class="text-gray-600 text-sm">
-        (11) 91234-5678
-       </p>
-       <p class="text-gray-600 text-sm truncate max-w-xs">
-        Rua Exemplo, 123, Bairro, Cidade
-       </p>
-      </div>
-     </div>
-     <div class="flex items-center space-x-4">
-      <button aria-label="Detalhes do cliente" class="px-3 py-1 text-cyan-600 border border-cyan-600 rounded hover:bg-cyan-50 focus:outline-none">
-       Detalhes
-      </button>
-     </div>
-    </li>
-   </ul>
-  </main>
-  <!-- Modal -->
-  <div aria-hidden="true" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" id="modal">
-   <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6">
-    <h3 class="text-lg font-semibold mb-4">
-     Cadastrar Cliente
-    </h3>
-    <form class="space-y-4" id="clientForm">
-     <div>
-      <label class="block text-sm font-medium text-gray-700" for="name">
-       Nome
-      </label>
-      <input class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" id="name" name="name" required="" type="text"/>
-     </div>
-     <div>
-      <label class="block text-sm font-medium text-gray-700" for="phone">
-       Número
-      </label>
-      <input class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" id="phone" name="phone" pattern="[\d\s()+-]+" placeholder="(11) 91234-5678" type="tel"/>
-     </div>
-     <div>
-      <label class="block text-sm font-medium text-gray-700" for="address">
-       Endereço
-      </label>
-      <input class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" id="address" name="address" placeholder="Rua, número, bairro, cidade" type="text"/>
-     </div>
-     <div class="flex justify-end space-x-3 pt-2">
-      <button class="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100" id="cancelBtn" type="button">
-       Cancelar
-      </button>
-      <button class="px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600" type="submit">
-       Salvar
-      </button>
-     </div>
-    </form>
-   </div>
+</head>
+<body class="bg-white text-gray-900 min-h-screen flex flex-col">
+
+<main class="flex-grow px-4 pt-6 pb-20 flex flex-col">
+  <div class="flex items-center justify-between mb-2">
+    <h2 class="text-lg font-semibold">Número de Clientes</h2>
+    <button id="openModalBtn" type="button" class="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-medium px-4 py-1 rounded">Cadastrar</button>
   </div>
-  <script>
-   const openModalBtn = document.getElementById('openModalBtn');
-    const modal = document.getElementById('modal');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const clientForm = document.getElementById('clientForm');
-    const clientsList = document.getElementById('clientsList');
-    const totalClients = document.getElementById('totalClients');
+  <div class="mb-2 text-gray-700 font-medium">Total: <span id="totalClients">1</span></div>
+  <hr class="border-t border-gray-300 mb-4" />
 
-    function updateTotal() {
-      totalClients.textContent = clientsList.children.length;
-    }
+  <ul id="clientsList" class="space-y-3 overflow-y-auto max-h-[60vh]">
+    <!-- Cliente exemplo -->
+  </ul>
+</main>
 
-    openModalBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      modal.setAttribute('aria-hidden', 'false');
-      document.getElementById('name').focus();
-    });
+<!-- Modal Cadastrar -->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6">
+    <h3 class="text-lg font-semibold mb-4">Cadastrar Cliente</h3>
+    <form class="space-y-4" id="clientForm">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+        <input required type="text" id="name" name="name" class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-cyan-500" />
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">Número</label>
+        <input type="tel" id="phone" name="phone" placeholder="(00)00000-0000" class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-cyan-500" />
+      </div>
+      <div>
+        <label for="address" class="block text-sm font-medium text-gray-700">Endereço</label>
+        <input type="text" id="address" name="address" placeholder="Rua, número, bairro, cidade" class="mt-1 block w-full rounded border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-cyan-500" />
+      </div>
+      <div class="flex justify-end space-x-3 pt-2">
+        <button type="button" id="cancelBtn" class="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100">Cancelar</button>
+        <button type="submit" class="px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-    cancelBtn.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modal.setAttribute('aria-hidden', 'true');
+<!-- Modal Detalhes -->
+<div id="detailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6">
+    <div class="flex flex-col items-center space-y-4">
+      <img id="detailsImage" class="w-28 h-28 rounded-full object-cover" src="" alt="Foto cliente" />
+      <h3 class="text-xl font-semibold" id="detailsName"></h3>
+      <p class="text-gray-600" id="detailsPhone"></p>
+      <p class="text-gray-600 text-center" id="detailsAddress"></p>
+      <div class="flex justify-end w-full space-x-3">
+        <button id="closeDetailsBtn" class="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100">Fechar</button>
+        <button id="deleteClientBtn" class="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600">Excluir Cliente</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmação -->
+<div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-sm p-6">
+    <h3 class="text-lg font-semibold mb-4 text-center">Confirmar Exclusão</h3>
+    <p class="text-gray-700 mb-4 text-sm text-center">O cliente será excluído permanentemente em 30 minutos.</p>
+    <div class="flex justify-end space-x-3">
+      <button id="cancelDeleteBtn" class="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100">Cancelar</button>
+      <button id="finalDeleteBtn" class="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const openModalBtn = document.getElementById('openModalBtn');
+  const modal = document.getElementById('modal');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const clientForm = document.getElementById('clientForm');
+  const clientsList = document.getElementById('clientsList');
+  const totalClients = document.getElementById('totalClients');
+  const phoneInput = document.getElementById('phone');
+
+  const detailsModal = document.getElementById('detailsModal');
+  const detailsName = document.getElementById('detailsName');
+  const detailsPhone = document.getElementById('detailsPhone');
+  const detailsAddress = document.getElementById('detailsAddress');
+  const detailsImage = document.getElementById('detailsImage');
+  const closeDetailsBtn = document.getElementById('closeDetailsBtn');
+  const deleteClientBtn = document.getElementById('deleteClientBtn');
+
+  const confirmModal = document.getElementById('confirmModal');
+  const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+  const finalDeleteBtn = document.getElementById('finalDeleteBtn');
+
+  let selectedClientItem = null;
+
+  function updateTotal() {
+    totalClients.textContent = clientsList.children.length;
+  }
+
+  openModalBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    document.getElementById('name').focus();
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    clientForm.reset();
+  });
+
+  clientForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = clientForm.name.value.trim();
+    const phone = clientForm.phone.value.trim();
+    const address = clientForm.address.value.trim();
+
+    if (name) {
+      const li = document.createElement('li');
+      li.className = 'border border-gray-300 rounded p-3 flex flex-col sm:flex-row sm:justify-between sm:items-center space-x-0 sm:space-x-4';
+      li.innerHTML = `
+        <div class="flex items-center space-x-4 mb-3 sm:mb-0">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBkA9WO3FnL4fddebhCcTztCr6vr2METdo9w&s"
+            class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
+          <div>
+            <p class="font-medium text-gray-900 clientName">${name}</p>
+            <p class="text-gray-600 text-sm clientPhone">${phone || '-'}</p>
+            <p class="text-gray-600 text-sm truncate max-w-xs clientAddress">${address || '-'}</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="detailsBtn px-3 py-1 text-cyan-600 border border-cyan-600 rounded hover:bg-cyan-50">Detalhes</button>
+        </div>
+      `;
+      const detailsBtn = li.querySelector('.detailsBtn');
+      detailsBtn.addEventListener('click', () => {
+        selectedClientItem = li;
+        detailsName.textContent = name;
+        detailsPhone.textContent = phone || '-';
+        detailsAddress.textContent = address || '-';
+        detailsImage.src = li.querySelector('img').src;
+        detailsModal.classList.remove('hidden');
+      });
+
+      clientsList.appendChild(li);
+      updateTotal();
       clientForm.reset();
-    });
+      modal.classList.add('hidden');
+    }
+  });
 
-    clientForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = clientForm.name.value.trim();
-      const phone = clientForm.phone.value.trim();
-      const address = clientForm.address.value.trim();
+  deleteClientBtn.addEventListener('click', () => {
+    confirmModal.classList.remove('hidden');
+  });
 
-      if (name) {
-        // Create client list item
-        const li = document.createElement('li');
-        li.className = 'border border-gray-300 rounded p-3 flex flex-col sm:flex-row sm:justify-between sm:items-center space-x-0 sm:space-x-4';
-        li.innerHTML = `
-          <div class="flex items-center space-x-4 mb-3 sm:mb-0">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBkA9WO3FnL4fddebhCcTztCr6vr2METdo9w&s"
-              alt="Ícone cinza de usuário vazio quadrado 64x64 pixels"
-              class="w-16 h-16 rounded-md object-cover flex-shrink-0"
-            />
-            <div>
-              <p class="font-medium text-gray-900">${name}</p>
-              <p class="text-gray-600 text-sm">${phone || '-'}</p>
-              <p class="text-gray-600 text-sm truncate max-w-xs">${address || '-'}</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4">
-            <button aria-label="Detalhes do cliente" class="px-3 py-1 text-cyan-600 border border-cyan-600 rounded hover:bg-cyan-50 focus:outline-none">
-              Detalhes
-            </button>
-          </div>
-        `;
+  cancelDeleteBtn.addEventListener('click', () => {
+    confirmModal.classList.add('hidden');
+  });
 
-        clientsList.appendChild(li);
-        updateTotal();
+  finalDeleteBtn.addEventListener('click', () => {
+    confirmModal.classList.add('hidden');
+    detailsModal.classList.add('hidden');
 
-        clientForm.reset();
-        modal.classList.add('hidden');
-        modal.setAttribute('aria-hidden', 'true');
-      }
-    });
+    if (selectedClientItem) {
+      const deleteBtn = selectedClientItem.querySelector('.detailsBtn');
+      const countdown = document.createElement('div');
+      countdown.className = 'px-3 py-1 text-red-600 text-sm rounded flex items-center gap-1 bg-red-100';
+      countdown.innerHTML = `<i class="fas fa-clock"></i> <span>30:00</span>`;
+      deleteBtn.replaceWith(countdown);
 
-    // Close modal on outside click
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-        modal.setAttribute('aria-hidden', 'true');
-        clientForm.reset();
-      }
-    });
+      let seconds = 1800;
+      const timer = countdown.querySelector('span');
+      const interval = setInterval(() => {
+        seconds--;
+        const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+        const sec = String(seconds % 60).padStart(2, '0');
+        timer.textContent = `${min}:${sec}`;
+        if (seconds <= 0) {
+          clearInterval(interval);
+          selectedClientItem.remove();
+          updateTotal();
+        }
+      }, 1000);
+    }
+  });
 
-    // Close modal on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        modal.classList.add('hidden');
-        modal.setAttribute('aria-hidden', 'true');
-        clientForm.reset();
-      }
-    });
-  </script>
- </body>
+  closeDetailsBtn.addEventListener('click', () => {
+    detailsModal.classList.add('hidden');
+  });
+
+  phoneInput.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (value.length >= 2) value = `(${value.slice(0, 2)})${value.slice(2)}`;
+    if (value.length > 9) value = value.slice(0, 9) + '-' + value.slice(9);
+    e.target.value = value;
+  });
+</script>
+
+</body>
 </html>
   </section>
 
@@ -423,4 +450,4 @@
   </script>
 
 </body>
-</html>
+  </html>
